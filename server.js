@@ -105,31 +105,10 @@ app.put('/collection/:collectionName/:id', (req,res,next) => {
          })
  })
 
-// const ObjectID = require('mongodb').ObjectID;
-// app.get('/collection/:collectionName/:id', (req, res, next) => {
-//     req.collection.findOne({ _id: new ObjectID(req.params.id) },
-//      (e, result) => {
-//      if (e) return next(e)
-//      res.send(result)
-//     })
-// })
-
-// app.put('/collection/:collectionName/:id', (req, res, next) => {
-//     req.collection.update(
-//         {_id: new ObjectID(req.params.id)},
-//         {$set: req.body},
-//         {safe: true, multi: false},
-//         (e, result) => {
-//           if (e) return next(e)
-//           res.send((result = 1) ? {msg: 'success'} : {msg: 'error'})
-//         })
-// })
-// app.get('/lessons', (request,response)=>{
-//     db.collection('lessons').find({}).toArray((err,res)=>{
-//         if(err) return next(e)
-//             response.json(res);
-//     })
-// })
+app.use(function(
+    request, response) 
+    {response.status(404).send("Page not found!");
+});
 
 app.listen(3000, function () {
     console.log("Express.js listening on localhost:3000");
