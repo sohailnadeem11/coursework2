@@ -158,7 +158,15 @@
                     this.showProduct = this.showProduct ? false : true;
                 },
                 submitForm() {
-                    alert('Order has been submitted!')
+        
+                    const lessonOrders = {
+                         firstName: this.order.firstName,
+                         lastName: this.order.lastName,
+                         phoneNumber: this.order.phoneNumber,
+                         lessonID: this.cart,
+                         space: this.availableInventory,
+                         };
+                         alert('Order has been submitted!')
                 },
                 canAddToCart(product) {
                     return product.availableInventory > this.cartCount(product.id);
