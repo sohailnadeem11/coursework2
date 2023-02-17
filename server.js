@@ -48,22 +48,22 @@ let logger = (req,res,next) =>{
     
 app.use(logger);
 
-//Returns Image or error if image does not exist
-app.use('/collection/:collectionName', (req, res, next) => {
-    var filePath = path.join(__dirname, "static/images" , req.url);
-    fs.stat(filePath, function(err, fileInfo){
-         if(err){
-             res.status(404);
-             res.send("Image file not found!");
-             return;
-         }
-         if(fileInfo.isFile()){
-             res.sendFile(filePath);
-             console.log("GET/" + req.url)
-        }
-         else next();
-      });
- });
+// //Returns Image or error if image does not exist
+// app.use('/collection/:collectionName', (req, res, next) => {
+//     var filePath = path.join(__dirname, "static/images" , req.url);
+//     fs.stat(filePath, function(err, fileInfo){
+//          if(err){
+//              res.status(404);
+//              res.send("Image file not found!");
+//              return;
+//          }
+//          if(fileInfo.isFile()){
+//              res.sendFile(filePath);
+//              console.log("GET/" + req.url)
+//         }
+//          else next();
+//       });
+//  });
 
 // Display message for root path to show tnat Api is Working
 app.get('/', (req,res,next) => {
