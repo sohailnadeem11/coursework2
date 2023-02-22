@@ -2,7 +2,8 @@
 const { ObjectID } = require('bson');
 const express = require ('express');
 const MongoClient = require('mongodb').MongoClient;
-const app = express();const path = require("path");
+const app = express();
+const path = require("path");
 const fs = require("fs");
 
 //CORS
@@ -48,22 +49,22 @@ let logger = (req,res,next) =>{
     
 app.use(logger);
 
-// //Returns Image or error if image does not exist
-// app.use('/collection/:collectionName', (req, res, next) => {
-//     var filePath = path.join(__dirname, "static/images" , req.url);
-//     fs.stat(filePath, function(err, fileInfo){
-//          if(err){
-//              res.status(404);
-//              res.send("Image file not found!");
-//              return;
-//          }
-//          if(fileInfo.isFile()){
-//              res.sendFile(filePath);
-//              console.log("GET/" + req.url)
-//         }
-//          else next();
-//       });
-//  });
+// Return images from images folder
+app.use((req, res, next)=>{
+    const filePath = path.join(__dirname, 'static', req.url); 
+    fs.stat(filePath, (error, fileInfo)=>{
+        if(error){
+            res.send('Error: requested image doesn\'t exist.');
+            return;
+        }
+
+        if(fileInfo.isFile()){
+            res.sendFile(filePath);
+        } else {
+            next();
+        }
+    });
+});
 
 // Display message for root path to show tnat Api is Working
 app.get('/', (req,res,next) => {
