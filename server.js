@@ -50,21 +50,21 @@ let logger = (req,res,next) =>{
 app.use(logger);
 
 // Return images from images folder
-app.use((req, res, next)=>{
-    const filePath = path.join(__dirname, 'static', req.url); 
-    fs.stat(filePath, (error, fileInfo)=>{
-        if(error){
-            res.send('Error: requested image doesn\'t exist.');
-            return;
-        }
+// app.use((req, res, next)=>{
+//     const filePath = path.join(__dirname, 'static', req.url); 
+//     fs.stat(filePath, (error, fileInfo)=>{
+//         if(error){
+//             res.send('Error: requested image doesn\'t exist.');
+//             return;
+//         }
 
-        if(fileInfo.isFile()){
-            res.sendFile(filePath);
-        } else {
-            next();
-        }
-    });
-});
+//         if(fileInfo.isFile()){
+//             res.sendFile(filePath);
+//         } else {
+//             next();
+//         }
+//     });
+// });
 
 // Display message for root path to show tnat Api is Working
 app.get('/', (req,res,next) => {
@@ -91,9 +91,16 @@ app.post('/collection/:collectionName', (req, res, next) => {
        req.collection.insertOne(req.body, (e, results) =>
          {
           if (e) return next(e) 
-          res.send(results.ops)
-         })
+          res.send(results ? {msg:'success'} : {msg:'error'})
+        })
 })
+//{
+//     "firstName": "Jay",
+//     "lastName": "Dee",
+//     "phoneNumber": "0571827431",
+//     "lessonID": "2",
+//     "space": "2"
+//   }
 
 //Updating Collection
 app.put('/collection/:collectionName/:id', (req,res,next) => {
